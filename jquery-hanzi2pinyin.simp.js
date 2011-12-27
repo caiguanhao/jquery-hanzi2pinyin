@@ -1,5 +1,5 @@
 /*
- * jQuery hanzi2pinyin v0.1 (simplified Chinese, common characters) - fast hanzi to pinyin convertion
+ * jQuery hanzi2pinyin v0.1 (simplified Chinese, common characters) - fast hanzi to pinyin conversion
  * Author: Caiguanhao
  * Licensed under the GPL license:
  * http://www.gnu.org/licenses/gpl.html
@@ -18,7 +18,7 @@
 			punctuation_marks={'。':'.','？':'?','！':'!','、':',','，':',','；':';','：':':','“':'"','”':'"','‘':'\'','’':'\'','（':'(','）':')','【':'[','】':']','［':'[','］':']','〔':'[','〕':']','《':'<','》':'>','〈':'<','〉':'>','·':'.','—':'-','…':'...','－':'-','·':'.','×':'*','＊':'*','＃':'#','～':'~','﹏':'_'},
 			punctuation_marks_pattern=/[。？！、，；：“”‘’（）【】［］〔〕《》〈〉·—…－×＊＃～﹏]/g,
 			val_elements=['input','textarea','select'],
-			h2p_convertion=function(){
+			h2p_conversion=function(){
 				var s=($.type(this)==='object')?($.inArray($(this)[0].nodeName.toLowerCase(),val_elements)>-1?$(this).val():$(this).html()):this,
 				o=function(){
 					if(s.match(/[\u4e00-\u9fa5]/g)){
@@ -67,9 +67,9 @@
 			};
 			switch($.type(this).toLowerCase()){
 			case 'object':
-				return this.each(function(){h2p_convertion.apply(this)});
+				return this.each(function(){h2p_conversion.apply(this)});
 			default:
-				return h2p_convertion.apply(this);
+				return h2p_conversion.apply(this);
 			}
 		}
 	});
