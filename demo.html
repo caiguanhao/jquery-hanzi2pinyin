@@ -1,0 +1,52 @@
+<!DOCTYPE HTML>
+<html>
+
+<head>
+<title>jquery-hanzi2pinyin-simp demo</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script src="jquery-1.7.1.min.js"></script>
+<script src="jquery-hanzi2pinyin.simp.js"></script>
+</head>
+
+<body>
+
+<h4>Enter Chinese here:</h4>
+<input id="zh" type="text" value="示例。" size="50" />
+
+<h4>Here shows Pinyin:</h4>
+<input id="py" type="text" value="" size="50" />
+
+<h4>Here shows Pinyin in proper case (title case):</h4>
+<textarea id="py2" cols="50" rows="3"></textarea>
+
+<h4>Here shows Pinyin with different hyphen:</h4>
+<span id="py3"></span>
+
+<h4>String convertion:</h4>
+<span id="py4"></span>
+
+<h4>Code:</h4>
+<!-- HTML generated using hilite.me --><div style="background: #ffffff; overflow:auto;width:auto;color:black;background:white;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%">$(<span style="color: #a31515">&#39;#zh&#39;</span>).bind(<span style="color: #a31515">&#39;keyup change&#39;</span>,<span style="color: #0000ff">function</span>(){
+	$(<span style="color: #0000ff">this</span>)
+		.hanzi2pinyin({target:<span style="color: #a31515">&#39;#py&#39;</span>})
+		.hanzi2pinyin({target:<span style="color: #a31515">&#39;#py2&#39;</span>,<span style="color: #a31515">&#39;case&#39;</span>:<span style="color: #a31515">&#39;proper&#39;</span>,punctuation_marks:<span style="color: #a31515">&#39;replace&#39;</span>})
+		.hanzi2pinyin({target:<span style="color: #a31515">&#39;#py3&#39;</span>,<span style="color: #a31515">&#39;case&#39;</span>:<span style="color: #a31515">&#39;upper&#39;</span>,hyphen:<span style="color: #a31515">&#39;~&#39;</span>});
+	
+	$(<span style="color: #a31515">&#39;#py4&#39;</span>).text($(<span style="color: #a31515">&#39;#zh&#39;</span>).val().hanzi2pinyin({<span style="color: #a31515">&#39;case&#39;</span>:<span style="color: #a31515">&#39;proper&#39;</span>,punctuation_marks:<span style="color: #a31515">&#39;replace&#39;</span>}));
+}).trigger(<span style="color: #a31515">&#39;keyup&#39;</span>);
+</pre></div>
+
+<script>
+$('#zh').bind('keyup change',function(){
+	$(this)
+		.hanzi2pinyin({target:'#py'})
+		.hanzi2pinyin({target:'#py2','case':'proper',punctuation_marks:'replace'})
+		.hanzi2pinyin({target:'#py3','case':'upper',hyphen:'~'});
+	
+	$('#py4').text($('#zh').val().hanzi2pinyin({'case':'proper',punctuation_marks:'remove'}));
+}).trigger('keyup');
+</script>
+
+</body>
+
+</html>
