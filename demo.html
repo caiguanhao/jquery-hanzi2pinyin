@@ -5,13 +5,16 @@
 <title>jquery-hanzi2pinyin-simp demo</title>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-<script src="jquery-hanzi2pinyin.simp.js"></script>
 </head>
 
 <body>
-<h3><a href="jquery-hanzi2pinyin.simp.js">jquery-hanzi2pinyin.simp.js</a></h3>
-<h4>Enter Chinese here:</h4>
-<input id="zh" type="text" value="示例１２３。" size="50" /><br />
+<small>jQuery hanzi2pinyin - fast hanzi to pinyin conversion - IE6+/Chrome/Firefox - <a href="https://github.com/caiguanhao/jquery-hanzi2pinyin">GitHub</a> / <a href="http://www.caiguanhao.com/archives/135">blogpost</a></small>
+<h3 id="head"><a href="jquery-hanzi2pinyin.all.js">jquery-hanzi2pinyin.all.js</a></h3>
+JavaScript to load:<select id="js">
+<option value="jquery-hanzi2pinyin.all.js">jquery-hanzi2pinyin.all.js</option>
+<option value="jquery-hanzi2pinyin.simp.js">jquery-hanzi2pinyin.simp.js</option>
+</select><br />
+input your text:<input id="zh" type="text" value="示例１２３。囧rz。" size="30" /><br />
 hyphen:<input id="hyphen" type="text" size="3" maxlength="3" value="-" />
 punctuation marks:<select id="pm">
 <option value="remove">remove</option>
@@ -28,6 +31,11 @@ fullwidth characters:<select id="fc">
 <option value="remove">remove</option>
 <option value="ignore">ignore</option>
 </select><br />
+tones <small>(available in hanzi2pinyin.all.js)</small>:<select id="tones">
+<option value="none">none</option>
+<option value="standard">standard</option>
+<option value="numeric">numeric</option>
+</select><br />
 <pre id="code"></pre>
 
 <h4>The results can be put into input, textarea, span or anything else:</h4>
@@ -41,39 +49,59 @@ fullwidth characters:<select id="fc">
 <span id="sh">上海自来水来自海上</span> => <span id="py5"></span>
 
 <h4>Code:</h4>
-<!-- HTML generated using hilite.me --><div style="background: #ffffff; overflow:auto;width:auto;color:black;background:white;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%">$(<span style="color: #a31515">&#39;#zh,#case,#hyphen,#pm,#fc&#39;</span>).bind(<span style="color: #a31515">&#39;keyup change&#39;</span>,<span style="color: #0000ff">function</span>(){
-	$(<span style="color: #a31515">&#39;#zh&#39;</span>).hanzi2pinyin({
-		target: <span style="color: #a31515">&#39;#py, #py2, #py3, #py4&#39;</span>,
-		<span style="color: #a31515">&#39;case&#39;</span>: $(<span style="color: #a31515">&#39;#case&#39;</span>).val(),
-		hyphen: $(<span style="color: #a31515">&#39;#hyphen&#39;</span>).val(),
-		punctuation_marks: $(<span style="color: #a31515">&#39;#pm&#39;</span>).val(),
-		fullwidth_chars: $(<span style="color: #a31515">&#39;#fc&#39;</span>).val()
+<!-- HTML generated using hilite.me --><div style="background: #ffffff; overflow:auto;width:auto;color:black;background:white;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;"><pre style="margin: 0; line-height: 125%">$(<span style="color: #a31515">&#39;#js&#39;</span>).change(<span style="color: #0000ff">function</span>(){
+	$(<span style="color: #a31515">&#39;#head&#39;</span>).html(<span style="color: #a31515">&#39;Loading...&#39;</span>);
+	$(<span style="color: #a31515">&#39;input,select,textarea,button&#39;</span>).prop(<span style="color: #a31515">&#39;disabled&#39;</span>,<span style="color: #0000ff">true</span>);
+	$.getScript($(<span style="color: #a31515">&#39;#js&#39;</span>).val(),<span style="color: #0000ff">function</span>(){
+		$(<span style="color: #a31515">&#39;#head&#39;</span>).html($(<span style="color: #a31515">&#39;&lt;a /&gt;&#39;</span>,{href:$(<span style="color: #a31515">&#39;#js&#39;</span>).val(),text:$(<span style="color: #a31515">&#39;#js&#39;</span>).val()}));
+		$(<span style="color: #a31515">&#39;#zh,#case,#hyphen,#pm,#fc,#tones&#39;</span>).bind(<span style="color: #a31515">&#39;keyup change&#39;</span>,<span style="color: #0000ff">function</span>(){
+			$(<span style="color: #a31515">&#39;#zh&#39;</span>).hanzi2pinyin({
+				target: <span style="color: #a31515">&#39;#py, #py2, #py3, #py4&#39;</span>,
+				<span style="color: #a31515">&#39;case&#39;</span>: $(<span style="color: #a31515">&#39;#case&#39;</span>).val(),
+				hyphen: $(<span style="color: #a31515">&#39;#hyphen&#39;</span>).val(),
+				punctuation_marks: $(<span style="color: #a31515">&#39;#pm&#39;</span>).val(),
+				fullwidth_chars: $(<span style="color: #a31515">&#39;#fc&#39;</span>).val(),
+				tones: $(<span style="color: #a31515">&#39;#tones&#39;</span>).val()
+			});
+			$(<span style="color: #a31515">&#39;#py5&#39;</span>).text($(<span style="color: #a31515">&#39;#sh&#39;</span>).text().hanzi2pinyin({
+				<span style="color: #a31515">&#39;case&#39;</span>: <span style="color: #a31515">&#39;proper&#39;</span>,
+				tones: <span style="color: #a31515">&#39;standard&#39;</span>
+			}));
+			$(<span style="color: #a31515">&#39;#code&#39;</span>).text(<span style="color: #a31515">&quot;.hanzi2pinyin({\r\n\ttarget: &#39;&#39;,\r\n\t&#39;case&#39;: &#39;&quot;</span> + $(<span style="color: #a31515">&#39;#case&#39;</span>).val() + 
+			<span style="color: #a31515">&quot;&#39;,\r\n\thyphen: &#39;&quot;</span> + $(<span style="color: #a31515">&#39;#hyphen&#39;</span>).val() + <span style="color: #a31515">&quot;&#39;,\r\n\tpunctuation_marks: &#39;&quot;</span> + $(<span style="color: #a31515">&#39;#pm&#39;</span>).val() + 
+			<span style="color: #a31515">&quot;&#39;,\r\n\tfullwidth_chars: &#39;&quot;</span> + $(<span style="color: #a31515">&#39;#fc&#39;</span>).val() + <span style="color: #a31515">&quot;&#39;,\r\n\ttones: &#39;&quot;</span> + $(<span style="color: #a31515">&#39;#tones&#39;</span>).val() + <span style="color: #a31515">&quot;&#39;\r\n}&quot;</span>);
+			$(<span style="color: #a31515">&#39;input,select,textarea,button&#39;</span>).prop(<span style="color: #a31515">&#39;disabled&#39;</span>,<span style="color: #0000ff">false</span>);
+		}).trigger(<span style="color: #a31515">&#39;keyup&#39;</span>);
 	});
-	$(<span style="color: #a31515">&#39;#py5&#39;</span>).text($(<span style="color: #a31515">&#39;#sh&#39;</span>).text().hanzi2pinyin({
-		<span style="color: #a31515">&#39;case&#39;</span>: <span style="color: #a31515">&#39;proper&#39;</span>
-	}));
-	$(<span style="color: #a31515">&#39;#code&#39;</span>).text(<span style="color: #a31515">&quot;.hanzi2pinyin({\r\n\ttarget: &#39;&#39;,\r\n\t&#39;case&#39;: &#39;&quot;</span> + $(<span style="color: #a31515">&#39;#case&#39;</span>).val() + 
-	<span style="color: #a31515">&quot;&#39;,\r\n\thyphen: &#39;&quot;</span> + $(<span style="color: #a31515">&#39;#hyphen&#39;</span>).val() + <span style="color: #a31515">&quot;&#39;,\r\n\tpunctuation_marks: &#39;&quot;</span> + $(<span style="color: #a31515">&#39;#pm&#39;</span>).val() + 
-	<span style="color: #a31515">&quot;&#39;,\r\n\tfullwidth_chars: &#39;&quot;</span> + $(<span style="color: #a31515">&#39;#fc&#39;</span>).val() + <span style="color: #a31515">&quot;&#39;\r\n}&quot;</span>);
-}).trigger(<span style="color: #a31515">&#39;keyup&#39;</span>);
+}).trigger(<span style="color: #a31515">&#39;change&#39;</span>);
 </pre></div>
 
 <script>
-$('#zh,#case,#hyphen,#pm,#fc').bind('keyup change',function(){
-	$('#zh').hanzi2pinyin({
-		target: '#py, #py2, #py3, #py4',
-		'case': $('#case').val(),
-		hyphen: $('#hyphen').val(),
-		punctuation_marks: $('#pm').val(),
-		fullwidth_chars: $('#fc').val()
+$('#js').change(function(){
+	$('#head').html('Loading...');
+	$('input,select,textarea,button').prop('disabled',true);
+	$.getScript($('#js').val(),function(){
+		$('#head').html($('<a />',{href:$('#js').val(),text:$('#js').val()}));
+		$('#zh,#case,#hyphen,#pm,#fc,#tones').bind('keyup change',function(){
+			$('#zh').hanzi2pinyin({
+				target: '#py, #py2, #py3, #py4',
+				'case': $('#case').val(),
+				hyphen: $('#hyphen').val(),
+				punctuation_marks: $('#pm').val(),
+				fullwidth_chars: $('#fc').val(),
+				tones: $('#tones').val()
+			});
+			$('#py5').text($('#sh').text().hanzi2pinyin({
+				'case': 'proper',
+				tones: 'standard'
+			}));
+			$('#code').text(".hanzi2pinyin({\r\n\ttarget: '',\r\n\t'case': '" + $('#case').val() + 
+			"',\r\n\thyphen: '" + $('#hyphen').val() + "',\r\n\tpunctuation_marks: '" + $('#pm').val() + 
+			"',\r\n\tfullwidth_chars: '" + $('#fc').val() + "',\r\n\ttones: '" + $('#tones').val() + "'\r\n}");
+			$('input,select,textarea,button').prop('disabled',false);
+		}).trigger('keyup');
 	});
-	$('#py5').text($('#sh').text().hanzi2pinyin({
-		'case': 'proper'
-	}));
-	$('#code').text(".hanzi2pinyin({\r\n\ttarget: '',\r\n\t'case': '" + $('#case').val() + 
-	"',\r\n\thyphen: '" + $('#hyphen').val() + "',\r\n\tpunctuation_marks: '" + $('#pm').val() + 
-	"',\r\n\tfullwidth_chars: '" + $('#fc').val() + "'\r\n}");
-}).trigger('keyup');
+}).trigger('change');
 </script>
 
 </body>
