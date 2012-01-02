@@ -71,9 +71,9 @@
 							return n;
 						}
 					}(s));
-				}();
-				if($.type(this).toLowerCase()=='object'&&!options.target)options.target=this;
-				$(options.target).each(function(){
+				}(),ot=options.target;
+				if($.type(this).toLowerCase()=='object'&&!options.target)ot=this;
+				$(ot).each(function(){
 					if($.inArray($(this)[0].nodeName.toLowerCase(),val_elements)>-1)
 						$(this).val(o);
 					else
